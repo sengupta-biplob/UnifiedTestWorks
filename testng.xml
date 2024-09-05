@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="" parallel="methods" thread-count="7">
+
+    <listeners>
+        <listener class-name="org.master.framework.listeners.testng.MethodInterceptor"/>
+        <listener class-name="org.master.framework.listeners.testng.AnnotationTransformer"/>
+        <listener class-name="org.master.framework.listeners.testng.TestListener"/>
+    </listeners>
+    <test name="Test Cases" preserve-order="true">
+        <classes>
+
+        </classes>
+    </test>
+</suite>
