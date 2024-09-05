@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <!-- Logging Properties -->
+    <Properties>
+        <Property name="LOG_PATTERN">[%-5level] ~ %d{yyyy-MM-dd'T'HH:mm:ssXXX} ~ [%t] ~ %logger{36} ~ %msg%n</Property>
+        <Property name="APP_LOG_ROOT">./target</Property>
+    </Properties>
+
+    <Appenders>
+
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!-- Rolling File Appender for the framework -->
+        <RollingFile  name="framework" fileName="${APP_LOG_ROOT}/framework.log" filePattern="${APP_LOG_ROOT}/framework-%d{yyyy-MM-dd}-%i.log.zip">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <!-- Rolling File Appender for selenium internals -->
+        <RollingFile  name="webdriver" fileName="${APP_LOG_ROOT}/webdriver.log" filePattern="${APP_LOG_ROOT}/webdriver-%d{yyyy-MM-dd}-%i.log.zip">
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="TRACE">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="framework"/>
+            <AppenderRef ref="webdriver"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>
